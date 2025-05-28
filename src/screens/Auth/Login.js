@@ -1,96 +1,70 @@
 import React, { useState } from 'react';
 import {
-  SafeAreaView,
   View,
   Text,
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  SafeAreaView,
   StatusBar,
-  Dimensions,
-  Image
+  Image,
+  Dimensions
 } from 'react-native';
-import BackIcon from '../../Components/Common/BackIcon';
-import BackgroundGradient from '../../Components/Common/BackgroundGradiant';
-import SocialLoginButtons from '../../Components/Common/SocialLoginButtons';
-import CheckBox from '../../Components/Common/Checkbox';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
-const SignInScreen = ({ navigation }) => {
-  const [rememberMe, setRememberMe] = useState(false);
+const LoginScreen = ({ navigation }) => {
+  const [whatsappNumber, setWhatsappNumber] = useState('');
+
+  const handleSendOTP = () => {
+    console.log('Sending OTP to:', whatsappNumber);
+    navigation.navigate('WhatsAppOtp');
+  };
+
+  const handleSignupRedirect = () => {
+    navigation.navigate('Register');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      
-      <View style={styles.backgroundContainer}>
-         <Image
-         source={require('../../assets/abstract.jpeg')}
-         style={styles.topBackgroundImage}
-         resizeMode="cover"
-       />
-      </View>
+      <StatusBar barStyle="dark-content" backgroundColor="#F8F9FA" />
 
-      <View style={styles.backButtonContainer}>
-        <BackIcon onPress={() => navigation.goBack()} />
-      </View>
-      
-      <View style={styles.formContainer}>
-        <Text style={styles.headerText}>Welcome back</Text>
-        
-        <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>Email or mobile number</Text>
-          <TextInput 
-            style={styles.textInput} 
-            placeholder="Email or mobile number" 
-            placeholderTextColor="#A0A0A0"
-            keyboardType="email-address"
-            autoCapitalize="none"
+      <View style={styles.content}>
+        <Text style={styles.header}>LOGIN TO</Text>
+        <Text style={[styles.header, { marginBottom: 50 }]}>LIFTLELO</Text>
+
+        <View style={styles.inputSection}>
+          <Text style={styles.label}>WhatsApp Number</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Your WhatsApp Number"
+            placeholderTextColor="#C4C4C4"
+            value={whatsappNumber}
+            onChangeText={setWhatsappNumber}
+            keyboardType="phone-pad"
           />
         </View>
-        
-        {/* <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>Password</Text>
-          <TextInput 
-            style={styles.textInput} 
-            placeholder="••••••••••" 
-            placeholderTextColor="#A0A0A0"
-            secureTextEntry
-          />
-        </View> */}
-        
-        {/* <View style={styles.rememberForgotContainer}>
-          <View style={styles.rememberMeContainer}>
-            <CheckBox
-              checked={rememberMe}
-              onPress={() => setRememberMe(!rememberMe)}
-            />
-            <Text style={styles.rememberMeText}>Remember me</Text>
-          </View>
-          <TouchableOpacity>
-            <Text style={styles.forgotPasswordText}>Forgot password?</Text>
-          </TouchableOpacity>
-        </View> */}
-        
-        <TouchableOpacity style={styles.signinButton}>
-          <Text style={styles.signinButtonText}>Send OTP</Text>
+
+        <TouchableOpacity
+          style={styles.sendButton}
+          onPress={handleSendOTP}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.sendButtonText}>SEND OTP</Text>
         </TouchableOpacity>
-        
-        {/* <View style={styles.orContainer}>
-          <Text style={styles.orText}>Sign in with</Text>
-        </View> */}
-        
-        {/* <SocialLoginButtons /> */}
-        
-        <View style={styles.bottomTextContainer}>
-          <Text style={styles.bottomText}>
-            Don't have an account? 
-            <Text 
-              style={styles.linkText} 
-              onPress={() => navigation.navigate('Register')}
-            > Sign up</Text>
+
+        <TouchableOpacity onPress={handleSignupRedirect} style={styles.signupContainer}>
+          <Text style={styles.signupText}>
+            Don’t have an account? <Text style={styles.signupLink}>Sign Up</Text>
           </Text>
+        </TouchableOpacity>
+
+        <View style={styles.logoContainer}>
+          <Image
+            source={require('../../assets/liftLogo.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
         </View>
       </View>
     </SafeAreaView>
@@ -100,111 +74,79 @@ const SignInScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F8F9FA',
   },
-  backgroundContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: height,
-    zIndex: -1,
-  },
-  topBackgroundImage: {
-    width: '100%',
-    height: '100%',
-  },
-  backButtonContainer: {
-    position: 'absolute',
-    top: 16,
-    left: 20,
-    zIndex: 10,
-  },
-  formContainer: {
-    marginTop: height * 0.58,
+  content: {
     flex: 1,
-    backgroundColor: 'white',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
     paddingHorizontal: 24,
-    paddingTop: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  headerText: {
-    fontSize: 24,
+  header: {
+    fontSize: 36,
     fontWeight: 'bold',
-    color: '#D32F2F', // red
+    color: '#C53030',
+    textAlign: 'center',
+    lineHeight: 30,
+    letterSpacing: 0.5,
+    marginTop: 10,
+  },
+  inputSection: {
+    width: '100%',
     marginBottom: 30,
   },
-  inputGroup: {
-    marginBottom: 16,
-  },
-  inputLabel: {
+  label: {
     fontSize: 14,
-    color: '#333',
+    fontWeight: '600',
+    color: '#2D3748',
     marginBottom: 8,
   },
-  textInput: {
-    height: 55,
+  input: {
+    width: '100%',
+    height: 44,
+    backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    borderColor: '#D3D3D3', // light grey
+    borderColor: '#E2E8F0',
     borderRadius: 10,
     paddingHorizontal: 16,
-    fontSize: 16,
-    backgroundColor: '#FAFAFA',
-  },
-  rememberForgotContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 5,
-    marginBottom: 20,
-  },
-  rememberMeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  rememberMeText: {
-    marginLeft: 10,
     fontSize: 14,
-    color: '#757575', // medium grey
+    color: '#2D3748',
   },
-  forgotPasswordText: {
-    fontSize: 14,
-    color: '#D32F2F', // red
-    fontWeight: '500',
-  },
-  signinButton: {
-    height: 55,
-    backgroundColor: '#D32F2F', // red
+  sendButton: {
+    width: '60%',
+    height: 40,
+    backgroundColor: '#C53030',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
+    marginBottom: 20,
+    elevation: 3,
   },
-  signinButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  orContainer: {
-    alignItems: 'center',
-    marginVertical: 20,
-  },
-  orText: {
+  sendButtonText: {
+    color: '#FFFFFF',
     fontSize: 14,
-    color: '#757575', // medium grey
+    fontWeight: 'bold',
+    letterSpacing: 0.5,
   },
-  bottomTextContainer: {
-    alignItems: 'center',
-    marginTop: 16,
+  signupContainer: {
+    marginBottom: 50,
   },
-  bottomText: {
+  signupText: {
     fontSize: 14,
-    color: '#757575', // medium grey
+    color: '#2D3748',
   },
-  linkText: {
-    color: '#D32F2F', // red
-    fontWeight: '500',
+  signupLink: {
+    color: '#C53030',
+    fontWeight: 'bold',
+  },
+  logoContainer: {
+    alignItems: 'center',
+  },
+  logo: {
+    width: width * 0.5,
+    height: width * 0.5,
+    bottom: '40%',
   },
 });
 
-export default SignInScreen;
+export default LoginScreen;

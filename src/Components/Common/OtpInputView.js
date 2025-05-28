@@ -19,8 +19,8 @@ export default OTPInputBox;
 
 const styles = StyleSheet.create({
   otpInput: {
-    width: 48,
-    height: 56,
+    width: 40,
+    height: 50,
     borderWidth: 1,
     borderColor: '#ccc',
     marginHorizontal: 6,

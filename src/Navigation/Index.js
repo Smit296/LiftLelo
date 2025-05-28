@@ -7,6 +7,7 @@ import Landing from '../screens/Static/Landing';
 import LoginOtp from '../screens/Auth/LoginOtp';
 import WhatsAppOtp from '../screens/Auth/WhatsAppOtp';
 import SplashScreen from '../screens/Static/SplashScreen';
+import Profile from '../screens/Auth/Profile';
 
 
 const Stack = createNativeStackNavigator();
@@ -25,6 +26,8 @@ const Navigation = () => {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegistrationScreen} />
       <Stack.Screen name="VerifyOtp" component={LoginOtp} />
+      <Stack.Screen name="ProfileScreen" component={Profile} />
+
       <Stack.Screen name="WhatsAppOtp" component={WhatsAppOtp} />
 
 

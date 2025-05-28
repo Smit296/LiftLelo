@@ -25,7 +25,7 @@ const SplashScreen = () => {
 
     // Navigate after 3 seconds
     const timeout = setTimeout(() => {
-      navigation.replace('Landing'); // Use `replace` so user can't go back to splash
+      navigation.replace('Login'); // Use `replace` so user can't go back to splash
     }, 3000);
 
     return () => clearTimeout(timeout); // Clean up on unmount

@@ -9,6 +9,7 @@ import {
   Dimensions,
   Keyboard,
   Modal,
+  Image,
 } from 'react-native';
 import OTPInputBox from '../../Components/Common/OtpInputView'; // Ensure this component is set up correctly
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -46,15 +47,15 @@ const WhatsAppOtp = ({ navigation }) => {
     const enteredOtp = otp.join('');
     console.log('Verifying OTP:', enteredOtp);
     setModalVisible(true); // Show success modal
-    // navigation.navigate('NextScreen');
+    navigation.navigate('ProfileScreen');
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
 
-      <View style={styles.circleTopRight} />
-      <View style={styles.circleBottomLeft} />
+      {/* <View style={styles.circleTopRight} />
+      <View style={styles.circleBottomLeft} /> */}
 
       <View style={styles.innerContainer}>
         <Text style={styles.title}>OTP Verification</Text>
@@ -82,6 +83,14 @@ const WhatsAppOtp = ({ navigation }) => {
             <Text style={{ fontWeight: '600', color: PRIMARY_COLOR }}>Resend</Text>
           </Text>
         </TouchableOpacity>
+
+          <View style={styles.logoContainer}>
+                  <Image
+                    source={require('../../assets/liftLogo.png')}
+                    style={styles.logo}
+                    resizeMode="contain"
+                  />
+                </View>
       </View>
 
       {/* Modal */}
@@ -132,13 +141,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 24,
-    marginLeft: '16%',
+    marginLeft: '0%',
   },
   verifyButton: {
     backgroundColor: PRIMARY_COLOR,
-    paddingVertical: 14,
-    paddingHorizontal: 80,
-    borderRadius: 30,
+    paddingVertical: 12,
+    paddingHorizontal: 70,
+    borderRadius: 10,
     marginTop: 10,
     shadowColor: PRIMARY_COLOR,
     shadowOffset: { width: 0, height: 6 },
@@ -178,7 +187,11 @@ const styles = StyleSheet.create({
     backgroundColor: SECONDARY_COLOR,
     zIndex: 1,
   },
-
+logo: {
+    width: width * 0.5,
+    height: width * 0.5,
+    // bottom:'10%'
+  },
   // Modal styles
   modalOverlay: {
     flex: 1,
