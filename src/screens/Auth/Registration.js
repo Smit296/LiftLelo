@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {apiCall} from '../../utils/api';
+import LocationAutocomplete from '../../Components/LocationAutocomplete';
 
 const {width} = Dimensions.get('window');
 
@@ -64,6 +65,10 @@ const Registration = ({navigation}) => {
         general: '',
       }));
     }
+  };
+
+  const handleLocationSelect = (field, locationData) => {
+    updateFormData(field, locationData.description);
   };
 
   const validateForm = () => {
@@ -261,35 +266,28 @@ const Registration = ({navigation}) => {
             ) : null}
           </View>
 
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Home Location</Text>
-            <TextInput
-              style={[styles.input, errors.HOME_LOCATION && styles.inputError]}
+          <View style={[styles.inputGroup, {zIndex: 9}]}>
+            <LocationAutocomplete
+              label="Home Location"
               placeholder="Enter Home Location"
-              placeholderTextColor="#9CA3AF"
+              onLocationSelect={locationData =>
+                handleLocationSelect('HOME_LOCATION', locationData)
+              }
               value={formData.HOME_LOCATION}
-              onChangeText={text => updateFormData('HOME_LOCATION', text)}
+              error={errors.HOME_LOCATION}
             />
-            {errors.HOME_LOCATION ? (
-              <Text style={styles.errorText}>{errors.HOME_LOCATION}</Text>
-            ) : null}
           </View>
 
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Office Location</Text>
-            <TextInput
-              style={[
-                styles.input,
-                errors.OFFICE_LOCATION && styles.inputError,
-              ]}
+          <View style={[styles.inputGroup, {zIndex: 8}]}>
+            <LocationAutocomplete
+              label="Office Location"
               placeholder="Enter Office Location"
-              placeholderTextColor="#9CA3AF"
+              onLocationSelect={locationData =>
+                handleLocationSelect('OFFICE_LOCATION', locationData)
+              }
               value={formData.OFFICE_LOCATION}
-              onChangeText={text => updateFormData('OFFICE_LOCATION', text)}
+              error={errors.OFFICE_LOCATION}
             />
-            {errors.OFFICE_LOCATION ? (
-              <Text style={styles.errorText}>{errors.OFFICE_LOCATION}</Text>
-            ) : null}
           </View>
 
           <TouchableOpacity
